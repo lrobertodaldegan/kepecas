@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { 
   View,
   StyleSheet,
@@ -21,8 +21,15 @@ const Step1Screen = ({navigation}) => {
   const [senha, setSenha] = useState(null);
   const [whats, setWhats] = useState(null);
   const [email, setEmail] = useState(null);
+  const [btnLbl, setBtnLbl] = useState(null);
+
+  useEffect(() => {
+    setBtnLbl('Continuar');
+  }, []);
 
   const handleSubmit = () => {
+    setBtnLbl('Carregando...');
+
     let deviceId = DeviceInfo.getDeviceId();
     let uniqueId = DeviceInfo.getUniqueIdSync();
 
@@ -97,10 +104,11 @@ const Step1Screen = ({navigation}) => {
               onChangeText={(val) => setEmail(val)} value={email}
               placeholder='Seu e-mail'/>
 
-          <Button1 label='Continuar' style={styles.continuar} action={() => handleSubmit()}/>
+          <Button1 label={btnLbl} style={styles.continuar} 
+              action={() => handleSubmit()}/>
 
           <Label style={styles.legend}
-              value='Fique tranquilo! Não compartilharemos nenhum dos seus dados com terceiros!'/>
+              value='Fique tranquilo! Não compartilharemos nenhum dos seus dados cadastrais com terceiros!'/>
         </View>
       </ScrollView>
     </>

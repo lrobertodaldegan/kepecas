@@ -3,6 +3,7 @@ import {
   StyleSheet,
   StatusBar,
   Dimensions,
+  Linking,
 } from "react-native";
 import Icon from "../../components/Icon";
 import Label from "../../components/Label";
@@ -49,15 +50,15 @@ const HomeScreen = ({navigation}) => {
               style={styles.subtitle}/>
 
           <View style={styles.cardsWrap}>
-            <Card style={styles.cardP} content={
-                <View style={styles.cardContent}>
-                  <Icon style={styles.cardPIcon} size={52} icon={faCartFlatbed}/>
+            <Card action={async () => await Linking.openURL('https://www.kepecas.com.br/')}
+                style={styles.cardP} content={
+                  <View style={styles.cardContent}>
+                    <Icon style={styles.cardPIcon} size={52} icon={faCartFlatbed}/>
 
-                  <View>
-                    <Label value={`Buscar por peças `} style={styles.cardLbl}/>
-                    <Label value={`em breve...`} style={styles.cardLegend}/>
+                    <View>
+                      <Label value={`Buscar por peças `} style={styles.cardLbl}/>
+                    </View>
                   </View>
-                </View>
             }/>
 
             <Card action={() => navigation.navigate('search')}

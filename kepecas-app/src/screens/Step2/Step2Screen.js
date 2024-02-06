@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { 
   View,
   StyleSheet,
@@ -21,6 +21,11 @@ const Step2Screen = ({navigation}) => {
   const [marcas, setMarcas] = useState([]);
   const [modelos, setModelos] = useState([]);
   const [anos, setAnos] = useState([]);
+  const [btnLbl, setBtnLbl] = useState(null);
+
+  useEffect(() => {
+    setBtnLbl('Continuar');
+  }, []);
 
   const handlePlacas = (idx, val) => {
     placas[idx] = val;
@@ -44,6 +49,8 @@ const Step2Screen = ({navigation}) => {
   }
 
   const handleSubmit = async () => {
+    setBtnLbl('Carregando...');
+
     let created = 0;
 
     try{
@@ -82,7 +89,7 @@ const Step2Screen = ({navigation}) => {
 
     for(let i=0; i<qtdCarros;i++){
       forms.push((
-        <View>
+        <View key={`${i}`}>
           <TextInput style={styles.input} placeholderTextColor='#134C83' 
               onChangeText={(val) => handlePlacas(i, val)} value={placas[i]}
               placeholder='Placa'/>
@@ -124,7 +131,7 @@ const Step2Screen = ({navigation}) => {
 
           <Button2 label='Adicionar mais um carro' action={() => setQtdCarros(qtdCarros+1)}/>
 
-          <Button1 label='Continuar' action={() => handleSubmit()}/>
+          <Button1 label={btnLbl} action={() => handleSubmit()}/>
 
           <Label style={styles.legend}
               value='Fique tranquilo! Não compartilharemos nenhum dos seus dados com terceiros!'/>

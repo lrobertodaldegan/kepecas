@@ -1,5 +1,4 @@
-import {useState, useEffect} from 'react';
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import React, {useState, useEffect} from 'react';
 import { 
   View,
   ScrollView,
@@ -59,13 +58,13 @@ const ProfileScreen = ({navigation}) => {
 
         <ScrollView style={styles.content}>
           <View style={styles.profileCardWrap}>
-            <ImageBackground source={user.foto && user.foto != null ? user.foto : logo} 
+            <ImageBackground source={user?.foto && user?.foto != null ? user?.foto : logo} 
                 style={styles.profileImage}
                 resizeMode='contain'/>
 
-            <Label value={user.name} style={styles.profileName}/>
+            <Label value={user?.name} style={styles.profileName}/>
 
-            <Label value={`${user.email}\n${user.login} - ${user.phone}`} 
+            <Label value={`${user?.email}\n${user?.login} - ${user?.phone}`} 
                 style={styles.profileDesc}/>
           
             <Button2 label={'Sair'} style={styles.blockBtn} action={() => handleSignOut()}/>

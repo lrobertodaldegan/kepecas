@@ -10,7 +10,11 @@ module.exports = function(app) {
 
   app.put(
     "/kepecas/user",
-    [authJwt.verifyToken, verifyUser.checkDuplicateEmail],
+    [
+      authJwt.verifyToken, 
+      verifyUser.checkDuplicateEmail,
+      verifyUser.checkDuplicatedUsername
+    ],
     controller.updateUser
   );
 

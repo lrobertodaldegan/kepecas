@@ -10,5 +10,7 @@ db.device = require("./device.model");
 db.usercar = require("./usercar.model");
 db.servicePartner = require("./servicePartner.model");
 db.resetCode = require("./resetCode.model");
+db.plan = require('./plan.model');
+db.signature = require('./signature.model');
 
 module.exports = db;

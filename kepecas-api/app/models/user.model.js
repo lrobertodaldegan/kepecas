@@ -8,6 +8,10 @@ const User = mongoose.model(
     email: String,
     password: String,
     phone: String,
+    signature: {
+      type: mongoose.Schema.Types.ObjectId, 
+      ref:'Signature'
+    }
   })
 );
 

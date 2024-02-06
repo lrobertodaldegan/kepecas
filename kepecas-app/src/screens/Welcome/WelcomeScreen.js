@@ -82,10 +82,14 @@ const WelcomeScreen = ({navigation}) => {
     } else {
       return (
         <View style={styles.btnWrap}>
-          <Label value='Seja muito bem-vindo!' style={styles.legend}/>
+          <Label value='Seja muito bem-vindo ao clube!' 
+              style={styles.legend}/>
 
-          <Button2 label='É o meu primeiro acesso' action={() => navigation.navigate('step1')}/>
-          <Button1 label='Já sou cadastrado!' action={() => navigation.navigate('login')}/>
+          <Button2 label='É o meu primeiro acesso' 
+              action={() => navigation.navigate('details')}/>
+              
+          <Button1 label='Já sou cadastrado!' 
+              action={() => navigation.navigate('login')}/>
         </View>
       );
     }

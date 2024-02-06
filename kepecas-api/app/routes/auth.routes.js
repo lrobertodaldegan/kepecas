@@ -6,6 +6,7 @@ module.exports = function(app) {
     "/kepecas/auth/signup",
     [
       verifyUser.checkDuplicateEmail,
+      verifyUser.checkDuplicatedUsername
     ],
     controller.signUp
   );

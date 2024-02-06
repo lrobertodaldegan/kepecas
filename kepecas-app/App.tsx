@@ -1,4 +1,7 @@
 import React from 'react';
+import {
+  Text
+} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import WelcomeScreen from './src/screens/Welcome/WelcomeScreen';
@@ -15,19 +18,50 @@ import SearchDetailScreen from './src/screens/SearchDetail/SearchDetailScreen';
 import FeedScreen from './src/screens/Feed/FeedScreen';
 import ProfileScreen from './src/screens/Profile/ProfileScreen';
 import TryAgainScreen from './src/screens/TryAgain/TryAgainScreen';
+import DetailsScreen from './src/screens/Details/DetailsScreen';
+import SplashScreen from './src/screens/Splash/SplashScreen';
 
 const ScreensOptions = {
   headerShown: false,
   headerTintColor: '#fff',
 }
 
+const config = {
+  screens: {
+    welcome: '',
+    details: 'details',
+    login: 'login',
+    reset:'reset',
+    resetLogin:'resetLogin',
+    codeValidation:'codeValidation',
+    step1:'step1',
+    step2:'step2',
+    step3:'step3',
+    home:'home',
+    search:'search',
+    searchDetail:'searchDetail',
+    feed:'feed',
+    profile:'profile',
+    error:'error',
+  },
+};
+
+const linking = {
+  prefixes: ['com.kepecas://app/'],
+  config,
+};
+
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
   return (
-    <NavigationContainer>
+    <NavigationContainer 
+        linking={linking} 
+        fallback={<SplashScreen />}>
+      
       <Stack.Navigator>
         <Stack.Screen name="welcome" component={WelcomeScreen} options={ScreensOptions} />
+        <Stack.Screen name="details" component={DetailsScreen} options={ScreensOptions} />
         <Stack.Screen name="login" component={LoginScreen} options={ScreensOptions} />
         <Stack.Screen name="reset" component={ResetSenhaScreen} options={ScreensOptions} />
         <Stack.Screen name="resetLogin" component={ResetLoginScreen} options={ScreensOptions} />
