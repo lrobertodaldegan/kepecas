@@ -9,7 +9,7 @@ import {
 import MiniLogo from "./MiniLogo";
 import Modal from './Modal';
 import Icon from "./Icon";
-import { faCircleUser, faMousePointer, faPaperPlane, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faCircleUser, faCommentAlt, faMousePointer, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import Label from './Label';
 
 
@@ -39,9 +39,9 @@ const Header = ({navigation}) => {
           </TouchableHighlight>
 
           <TouchableHighlight underlayColor='#fafafa' 
-              onPress={async () => await Linking.openURL('https://api.whatsapp.com/send/?phone=5541988996075&text&type=phone_number&app_absent=0')}>
+              onPress={async () => await Linking.openURL('https://wa.me/5541988996075/?text=Olá!%20Tenho%20o%20clube%20e%20quero%20um%20atendimento%20personalizado.%20Pode%20me%20ajudar?')}>
             <View style={styles.modalOption}>
-              <Icon icon={faPhone} size={25} style={styles.mIcon}/>
+              <Icon icon={faCommentAlt} size={25} style={styles.mIcon}/>
               <Label value='Fale com a gente pelo whatsapp!'/>
             </View>
           </TouchableHighlight>

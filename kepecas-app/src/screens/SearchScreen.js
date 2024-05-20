@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { faArrowLeftLong, faCartFlatbed, faShop, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeftLong, faShop } from "@fortawesome/free-solid-svg-icons";
 import { 
   View,
   StyleSheet,
@@ -10,21 +10,17 @@ import {
   FlatList,
   PermissionsAndroid,
 } from "react-native";
-import Icon from "../../components/Icon";
-import Label from "../../components/Label";
-import PecaListItem from '../../components/PecaListItem';
-import ServicoListItem from '../../components/ServicoListItem';
-import UsuarioListItem from '../../components/UsuarioListItem';
-import {get} from '../../Service/Rest/RestService';
-import mobileAds, { MaxAdContentRating, BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-import Loader from '../../components/Loader';
+import Icon from "../components/Icon";
+import Label from "../components/Label";
+import ServicoListItem from '../components/ServicoListItem';
+import {get} from '../Service/Rest/RestService';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Loader from '../components/Loader';
 import Geolocation from 'react-native-geolocation-service';
-import Modal from '../../components/Modal';
-import Button2 from '../../components/Button2';
+import Modal from '../components/Modal';
+import Button2 from '../components/Button2';
 
-const adapterStatuses = mobileAds().initialize();
-
-const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2420598559068720~4910331381';
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2420598559068720/6468799913';
 
 const SearchScreen = ({navigation}) => {
   const [loading, setLoading] = useState(true);
@@ -35,22 +31,6 @@ const SearchScreen = ({navigation}) => {
   const [coords, setCoords] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [placa, setPlaca] = useState('');
-
-  mobileAds()
-  .setRequestConfiguration({
-    // Update all future requests suitable for parental guidance
-    maxAdContentRating: MaxAdContentRating.PG,
-    // Indicates that you want your content treated as child-directed for purposes of COPPA.
-    tagForChildDirectedTreatment: true,
-    // Indicates that you want the ad request to be handled in a
-    // manner suitable for users under the age of consent.
-    tagForUnderAgeOfConsent: true,
-    // An array of test device IDs to allow.
-    testDeviceIdentifiers: ['EMULATOR'],
-  })
-  .then(() => {
-    // Request config successfully set!
-  });
 
   useEffect(() => {
     get('/service/partners').then((response) => {      
@@ -114,22 +94,11 @@ const SearchScreen = ({navigation}) => {
             style={styles.list}
             data={results}
             keyExtractor={(item) => item.id ? item.id : item._id}
-            ListHeaderComponent={
-              <View style={styles.ad}>
-                <BannerAd
-                  unitId={adUnitId}
-                  size={BannerAdSize.BANNER}
-                  requestOptions={{
-                    requestNonPersonalizedAdsOnly: true,
-                  }}
-                />
-              </View>
-            }
             ListFooterComponent={
               <View style={styles.ad}>
                 <BannerAd
                   unitId={adUnitId}
-                  size={BannerAdSize.BANNER}
+                  size={BannerAdSize.MEDIUM_RECTANGLE}
                   requestOptions={{
                     requestNonPersonalizedAdsOnly: true,
                   }}
@@ -159,7 +128,8 @@ const SearchScreen = ({navigation}) => {
 
         resultsAux.forEach(r => {
           if(r.name.toLowerCase().includes(filter.toLowerCase()) 
-                || r.cat.toLowerCase().includes(filter.toLowerCase())){
+                || r.cat.toLowerCase().includes(filter.toLowerCase())
+                || (r.services && r.services !== null && r.services.toLowerCase().includes(filter.toLowerCase()))){
             filtered.push(r);
           }
         });
@@ -392,9 +362,6 @@ const styles = StyleSheet.create({
   ad:{
     alignItems:'center',
     marginBottom:10,
-    width:size.width - 40,
-    backgroundColor:'#fafafa',
-    borderRadius:10
   },
   wrapInputPlaca:{
     borderWidth:5,

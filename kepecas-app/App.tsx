@@ -1,25 +1,24 @@
 import React from 'react';
-import {
-  Text
-} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import WelcomeScreen from './src/screens/Welcome/WelcomeScreen';
-import LoginScreen from './src/screens/Login/LoginScreen';
-import ResetSenhaScreen from './src/screens/ResetSenha/ResetSenhaScreen';
-import ResetLoginScreen from './src/screens/ResetSenha/ResetLoginScreen';
-import ResetCodeValidationScreen from './src/screens/ResetSenha/ResetCodeValidationScreen';
-import Step1Screen from './src/screens/Step1/Step1Screen';
-import Step2Screen from './src/screens/Step2/Step2Screen';
-import Step3Screen from './src/screens/Step3/Step3Screen';
-import HomeScreen from './src/screens/Home/HomeScreen';
-import SearchScreen from './src/screens/Search/SearchScreen';
-import SearchDetailScreen from './src/screens/SearchDetail/SearchDetailScreen';
-import FeedScreen from './src/screens/Feed/FeedScreen';
-import ProfileScreen from './src/screens/Profile/ProfileScreen';
-import TryAgainScreen from './src/screens/TryAgain/TryAgainScreen';
-import DetailsScreen from './src/screens/Details/DetailsScreen';
-import SplashScreen from './src/screens/Splash/SplashScreen';
+import mobileAds from 'react-native-google-mobile-ads';
+import WelcomeScreen from './src/screens/WelcomeScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import ResetSenhaScreen from './src/screens/ResetSenhaScreen';
+import ResetLoginScreen from './src/screens/ResetLoginScreen';
+import ResetCodeValidationScreen from './src/screens/ResetCodeValidationScreen';
+import Step1Screen from './src/screens/Step1Screen';
+import Step2Screen from './src/screens/Step2Screen';
+import Step3Screen from './src/screens/Step3Screen';
+import Step4Screen from './src/screens/Step4Screen';
+import HomeScreen from './src/screens/HomeScreen';
+import SearchScreen from './src/screens/SearchScreen';
+import SearchDetailScreen from './src/screens/SearchDetailScreen';
+import FeedScreen from './src/screens/FeedScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import TryAgainScreen from './src/screens/TryAgainScreen';
+import DetailsScreen from './src/screens/DetailsScreen';
+import SplashScreen from './src/screens/SplashScreen';
 
 const ScreensOptions = {
   headerShown: false,
@@ -54,6 +53,8 @@ const linking = {
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
+  mobileAds().initialize();
+
   return (
     <NavigationContainer 
         linking={linking} 
@@ -69,6 +70,7 @@ function App(): JSX.Element {
         <Stack.Screen name="step1" component={Step1Screen} options={ScreensOptions} />
         <Stack.Screen name="step2" component={Step2Screen} options={ScreensOptions} />
         <Stack.Screen name="step3" component={Step3Screen} options={ScreensOptions} />
+        <Stack.Screen name="step4" component={Step4Screen} options={ScreensOptions} />
         <Stack.Screen name="home" component={HomeScreen} options={ScreensOptions} />
         <Stack.Screen name="search" component={SearchScreen} options={ScreensOptions} />
         <Stack.Screen name="searchDetail" component={SearchDetailScreen} options={ScreensOptions} />

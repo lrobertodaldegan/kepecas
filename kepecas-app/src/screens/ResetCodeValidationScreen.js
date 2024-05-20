@@ -7,11 +7,11 @@ import {
   Dimensions,
   TextInput
 } from "react-native";
-import Button1 from "../../components/Button1";
-import Label from "../../components/Label";
-import Logo from "../../components/Logo";
-import {post} from "../../Service/Rest/RestService";
-import CacheService from '../../Service/Cache/CacheService';
+import Button1 from "../components/Button1";
+import Label from "../components/Label";
+import Logo from "../components/Logo";
+import {post} from "../Service/Rest/RestService";
+import CacheService from '../Service/Cache/CacheService';
 
 const ResetCodeValidationScreen = ({navigation}) => {
   const [code, setCode] = useState(null);

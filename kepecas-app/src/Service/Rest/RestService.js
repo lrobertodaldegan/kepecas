@@ -1,7 +1,7 @@
 import axios from 'axios';
 import CacheService from '../Cache/CacheService';
 
-const BASEURL = 'http://192.168.100.33:8080/kepecas';
+const BASEURL = 'https://lucasrobertodev.com.br/api/kepecas';
 
 const DEFAULT_HEADERS = {
   'X-Requested-With': 'XMLHttpRequest'

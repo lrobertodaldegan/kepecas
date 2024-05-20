@@ -7,15 +7,19 @@ import{
   Linking,
   Image
 } from 'react-native';
-import { faMapLocation, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faCommentAlt, faMapLocation } from '@fortawesome/free-solid-svg-icons'
 import Label from './Label';
 import Icon from './Icon';
 import {post} from '../Service/Rest/RestService';
 import Loader from './Loader';
 
+const SVC_LABELS = ['Ver serviços', 'Ocultar serviços'];
+
 const ServicoCardItem = ({item, onSelect=() => null, coordinates={}, navigation}) => {
   const [loading, setLoading] = useState(true);
   const [distance, setDistance] = useState(0);
+  const [svcLbl, setSvcLbl] = useState(SVC_LABELS[0]);
+  const [showServices, setShowServices] = useState(false);
 
   useEffect(() => {
     if(coordinates && coordinates.longitude && coordinates.latitude){
@@ -38,6 +42,13 @@ const ServicoCardItem = ({item, onSelect=() => null, coordinates={}, navigation}
       }
     }
   }, []);
+
+  useEffect(() => {
+    if(showServices === true)
+      setSvcLbl(SVC_LABELS[1]);
+    else
+      setSvcLbl(SVC_LABELS[0]);
+  }, [showServices]);
 
   const renderDistance = () => {
     if(loading){
@@ -72,7 +83,10 @@ const ServicoCardItem = ({item, onSelect=() => null, coordinates={}, navigation}
       return (
         <TouchableHighlight underlayColor='#fafafa'
             onPress={() => Linking.openURL(url)}>
-          <Icon icon={faMapLocation} style={styles.icon} size={30}/>
+          <View style={styles.iconWrap}>
+            <Icon icon={faMapLocation} style={styles.icon} size={30}/>
+            <Label value={'Ver no mapa'} style={styles.iconLbl}/>
+          </View>
         </TouchableHighlight>
       )
     } else {
@@ -87,6 +101,23 @@ const ServicoCardItem = ({item, onSelect=() => null, coordinates={}, navigation}
       return <Icon icon={faShop} style={styles.icon} size={50}/>
     }
   }
+
+  const renderServices = () => {
+    if(showServices === true){
+      if(item.services && item.services !== null){
+        return (
+          <Label value={item.services} style={styles.servicesLbl}/>
+        );
+      } else {
+        return (
+          <Label value={item.cat && item.cat !== null ? item.cat : ''} 
+              style={styles.servicesLbl}/>
+        );
+      }
+    }
+
+    return <></>
+  };
 
   return (
     <View style={styles.wrap}>
@@ -105,12 +136,24 @@ const ServicoCardItem = ({item, onSelect=() => null, coordinates={}, navigation}
 
       <View style={styles.selectBtn}>
         <TouchableHighlight underlayColor='#fafafa'
-            onPress={() => Linking.openURL(`tel:${item.phone}`)}>
-          <Icon icon={faPhone} style={styles.icon} size={30}/>
+            onPress={() => Linking.openURL(`https://wa.me/55${item.phone}/?text=Olá!%20Eu%20participo%20do%20clube%20kepeças%20e%20gostaria%20dos%20seus%20serviços...`)}>
+          <View style={styles.iconWrap}>
+            <Icon icon={faCommentAlt} style={styles.icon} size={30}/>
+            <Label value={'Whatsapp'} style={styles.iconLbl}/>
+          </View>
         </TouchableHighlight>
 
         {renderMapLink()}
       </View>
+
+      <TouchableHighlight underlayColor='#fafafa'
+          onPress={() => setShowServices(!showServices)}>
+        <View style={styles.iconWrap}>
+          <Label value={svcLbl} style={styles.svcBtnLbl}/>
+        </View>
+      </TouchableHighlight>
+
+      {renderServices()}
     </View>
   );
 }
@@ -123,7 +166,7 @@ const styles = StyleSheet.create({
     backgroundColor:'#fafafa',
     width:size.width - 40,
     minHeight: size.height / 3,
-    marginVertical:10,
+    marginVertical:20,
     paddingVertical:10,
     paddingHorizontal:20,
     borderRadius: 10,
@@ -135,18 +178,18 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center',
-    width:(size.width - 40 )/3,
     marginVertical:20
   },
   details:{
-    width:(size.width - 40 )/1.5,
+    textAlign:'center'
   },
   lbl:{
-    marginVertical:3
+    marginVertical:3,
+    textAlign:'center'
   },
   titleLbl:{
     fontSize:14,
-    alignSelf:'flex-start',
+    textAlign:'center',
     fontFamily:'Montserrat-Bold',
     color:'#134C83'
   },
@@ -172,7 +215,22 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     width:100,
     height:100
-  }
+  },
+  iconWrap:{
+    alignItems:'center',
+    marginHorizontal: 10
+  },
+  iconLbl:{
+    marginTop:5,
+    fontSize:12
+  },
+  svcBtnLbl:{
+    marginVertical:10,
+    fontSize:14
+  },
+  servicesLbl:{
+    color:'#134C83'
+  },
 });
 
 export default ServicoCardItem;

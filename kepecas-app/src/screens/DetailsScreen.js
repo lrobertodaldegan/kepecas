@@ -6,10 +6,10 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import Button1 from "../../components/Button1";
-import Label from "../../components/Label";
-import Logo from "../../components/Logo";
-import Divider from '../../components/Divider';
+import Button1 from "../components/Button1";
+import Label from "../components/Label";
+import Logo from "../components/Logo";
+import Divider from '../components/Divider';
 
 const DetailsScreen = ({navigation}) => {
   return (

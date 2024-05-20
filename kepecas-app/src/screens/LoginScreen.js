@@ -5,19 +5,23 @@ import {
   StyleSheet,
   StatusBar,
   Dimensions,
-  TextInput
+  TextInput,
+  TouchableHighlight,
 } from "react-native";
-import Button1 from "../../components/Button1";
-import Link from "../../components/Link";
-import Label from "../../components/Label";
-import Logo from "../../components/Logo";
-import CacheService from '../../Service/Cache/CacheService';
-import {login} from '../../Service/Rest/RestService';
+import Button1 from "../components/Button1";
+import Link from "../components/Link";
+import Label from "../components/Label";
+import Logo from "../components/Logo";
+import CacheService from '../Service/Cache/CacheService';
+import {login} from '../Service/Rest/RestService';
+import Icon from '../components/Icon';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 
 const LoginScreen = ({navigation}) => {
   const [u, setU] = useState(null);
   const [p, setP] = useState(null);
+  const [showPass, setShowPass] = useState(false);
   const [enterLbl, setEnterLbl] = useState('Entrar');
 
   const handleLogin = () => {
@@ -38,7 +42,9 @@ const LoginScreen = ({navigation}) => {
     <>
       <StatusBar backgroundColor='#B6ECFF' barStyle='dark-content'/>
 
-      <ScrollView contentContainerStyle={styles.wrap}>
+      <ScrollView contentContainerStyle={styles.wrap}
+          keyboardDismissMode='on-grag'
+          keyboardShouldPersistTaps='always'>
         <Logo style={styles.logo}/>
 
         <View style={styles.inputsWrap}>
@@ -48,10 +54,19 @@ const LoginScreen = ({navigation}) => {
               onChangeText={(val) => setU(val)} value={u}
               placeholder='Seu login'/>
 
-          <TextInput style={styles.input} placeholderTextColor='#134C83' 
+          <View style={[styles.input, styles.inputPassWrap]}>
+            <TextInput style={styles.inputPass} placeholderTextColor='#134C83' 
               onChangeText={(val) => setP(val)} value={p}
-              secureTextEntry={true}
+              secureTextEntry={showPass === false}
+              onEndEditing={handleLogin}
               placeholder='Sua senha'/>
+
+            <TouchableHighlight underlayColor={'transparent'}
+              onPress={() => setShowPass(!showPass)}>
+              <Icon icon={showPass === true ? faEyeSlash : faEye} 
+                  style={styles.passIcon}/>
+            </TouchableHighlight>
+          </View>
         </View>
 
         <View style={styles.btnWrap}>
@@ -90,6 +105,15 @@ const styles = StyleSheet.create({
     marginTop:10,
     backgroundColor:'rgba(255,255,255,0.5)',
     paddingHorizontal: 20,
+    fontFamily:'Montserrat-Regular',
+    color:'#134C83'
+  },
+  inputPassWrap:{
+    flexDirection:'row',
+    alignItems:'center'
+  },
+  inputPass:{
+    width:(screen.width - 40) * 0.83,
     fontFamily:'Montserrat-Regular',
     color:'#134C83'
   },

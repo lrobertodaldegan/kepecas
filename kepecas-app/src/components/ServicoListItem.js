@@ -7,7 +7,7 @@ import{
   Linking,
   Image,
 } from 'react-native';
-import { faMapLocation, faShop, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faMapLocation, faShop, faCommentAlt } from '@fortawesome/free-solid-svg-icons'
 import Label from './Label';
 import Icon from './Icon';
 import {post} from '../Service/Rest/RestService';
@@ -72,7 +72,7 @@ const ServicoListItem = ({item, onSelect=() => null, coordinates={}, navigation}
     if(item.logo && item.logo != null){
       return <Image source={{uri: item.logo}} style={styles.logo}/>
     } else {
-      return <Icon icon={faShop} style={styles.icon} size={50}/>
+      return <Icon icon={faShop} style={styles.icon} size={30}/>
     }
   }
 
@@ -99,8 +99,8 @@ const ServicoListItem = ({item, onSelect=() => null, coordinates={}, navigation}
           {renderMapLink()}
 
           <TouchableHighlight underlayColor='#fafafa' style={styles.phoneIcon}
-              onPress={() => Linking.openURL(`tel:${item.phone}`)}>
-            <Icon icon={faPhone} style={styles.icon} size={20}/>
+              onPress={() => Linking.openURL(`https://wa.me/55${item.phone}/?text=Olá!%20Eu%20participo%20do%20clube%20kepeças%20e%20gostaria%20dos%20seus%20serviços...`)}>
+            <Icon icon={faCommentAlt} style={styles.icon} size={20}/>
           </TouchableHighlight>
         </View>
       </>

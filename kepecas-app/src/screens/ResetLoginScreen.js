@@ -7,12 +7,12 @@ import {
   Dimensions,
   TextInput
 } from "react-native";
-import Button1 from "../../components/Button1";
-import Link from "../../components/Link";
-import Label from "../../components/Label";
-import Logo from "../../components/Logo";
-import CacheService from '../../Service/Cache/CacheService';
-import {put} from '../../Service/Rest/RestService';
+import Button1 from "../components/Button1";
+import Link from "../components/Link";
+import Label from "../components/Label";
+import Logo from "../components/Logo";
+import CacheService from '../Service/Cache/CacheService';
+import {put} from '../Service/Rest/RestService';
 
 
 const ResetLoginScreen = ({navigation}) => {

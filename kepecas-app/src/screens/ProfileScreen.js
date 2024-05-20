@@ -7,13 +7,13 @@ import {
   Dimensions,
   ImageBackground,
 } from "react-native";
-import Button2 from "../../components/Button2";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import Label from "../../components/Label";
-import logo from '../../assets/img/logo_menor.png';
-import { get } from '../../Service/Rest/RestService';
-import CacheService from '../../Service/Cache/CacheService';
+import Button2 from "../components/Button2";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import Label from "../components/Label";
+import logo from '../assets/img/logo_menor.png';
+import { get } from '../Service/Rest/RestService';
+import CacheService from '../Service/Cache/CacheService';
 
 
 const ProfileScreen = ({navigation}) => {
@@ -64,7 +64,7 @@ const ProfileScreen = ({navigation}) => {
 
             <Label value={user?.name} style={styles.profileName}/>
 
-            <Label value={`${user?.email}\n${user?.login} - ${user?.phone}`} 
+            <Label value={`${user?.email && user?.email !== null ? user?.email : ''}\n${user?.login && user?.login !== null ? user?.login : ''} ${user?.phone && user?.phone !== null ? '-'+user?.phone : ''}`} 
                 style={styles.profileDesc}/>
           
             <Button2 label={'Sair'} style={styles.blockBtn} action={() => handleSignOut()}/>

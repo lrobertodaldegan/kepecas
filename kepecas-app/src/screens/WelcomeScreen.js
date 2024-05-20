@@ -6,16 +6,16 @@ import {
   Dimensions,
   PermissionsAndroid,
 } from "react-native";
-import Button1 from "../../components/Button1";
-import Button2 from "../../components/Button2";
-import Label from "../../components/Label";
-import Logo from "../../components/Logo";
-import CacheService from '../../Service/Cache/CacheService';
-import {post} from '../../Service/Rest/RestService';
+import Button1 from "../components/Button1";
+import Button2 from "../components/Button2";
+import Label from "../components/Label";
+import Logo from "../components/Logo";
+import {post} from '../Service/Rest/RestService';
 import DeviceInfo from 'react-native-device-info';
 import { useNavigation } from '@react-navigation/native';
-import Loader from '../../components/Loader';
+import Loader from '../components/Loader';
 import Geolocation from 'react-native-geolocation-service';
+import CacheService from '../Service/Cache/CacheService';
 
 
 const WelcomeScreen = ({navigation}) => {
@@ -61,18 +61,24 @@ const WelcomeScreen = ({navigation}) => {
 
   useEffect(() => {
     CacheService.get('@jwt').then((jwt) => {
-      console.log('Token encontrado em cache!');
+      if(jwt && jwt !== null){
+        post('/user/device', {deviceId:devId})
+        .then((response) => {
+          setLoading(false);
 
-      post('/user/device', {deviceId:devId})
-      .then((response) => {
+          console.log(response.data);
+
+          if(response.status === 200){
+            let allOk = response.data.valid === true 
+                          && response.data.subscriptionOk === true;
+
+            navigate.navigate(allOk === true ? 'home' : 'step3');
+          }
+        })
+        .catch((err) => console.log(err));
+      } else {
         setLoading(false);
-        
-        if(response.status === 200){
-          if(response.data.valid)
-            navigate.navigate('home');
-        }
-      })
-      .catch((err) => console.log(err));
+      }
     });
   }, []);
 

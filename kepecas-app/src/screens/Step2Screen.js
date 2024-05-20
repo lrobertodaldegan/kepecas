@@ -7,12 +7,12 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import Button1 from "../../components/Button1";
-import Button2 from "../../components/Button2";
-import Label from "../../components/Label";
-import Logo from "../../components/Logo";
-import Divider from '../../components/Divider';
-import {post} from '../../Service/Rest/RestService'; 
+import Button1 from "../components/Button1";
+import Button2 from "../components/Button2";
+import Label from "../components/Label";
+import Logo from "../components/Logo";
+import Divider from '../components/Divider';
+import {post} from '../Service/Rest/RestService'; 
 
 
 const Step2Screen = ({navigation}) => {
@@ -74,7 +74,7 @@ const Step2Screen = ({navigation}) => {
       }
 
       if(created == qtdCarros)
-        navigation.navigate('home'/*'step3'*/);
+        navigation.navigate('step3');
       else
         navigation.navigate('error');
     }catch(err) {
@@ -106,7 +106,8 @@ const Step2Screen = ({navigation}) => {
             <TextInput style={[styles.input, styles.inputYear]} placeholderTextColor='#134C83' 
                 keyboardType='numeric'
                 onChangeText={(val) => handleAnos(i, val)} value={anos[i]}
-                placeholder='Ano'/>
+                placeholder='Ano'
+                onEndEditing={() => handleSubmit()}/>
           </View>
   
           <Divider />

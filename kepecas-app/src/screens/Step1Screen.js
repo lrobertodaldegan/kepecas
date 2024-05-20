@@ -7,13 +7,14 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import Button1 from "../../components/Button1";
-import Label from "../../components/Label";
-import Logo from "../../components/Logo";
-import Divider from '../../components/Divider';
+import Button1 from "../components/Button1";
+import Label from "../components/Label";
+import Logo from "../components/Logo";
+import Divider from '../components/Divider';
 import DeviceInfo from 'react-native-device-info';
-import CacheService from '../../Service/Cache/CacheService';
-import {post} from '../../Service/Rest/RestService';
+import CacheService from '../Service/Cache/CacheService';
+import {post} from '../Service/Rest/RestService';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Step1Screen = ({navigation}) => {
   const [nome, setNome] = useState(null);
@@ -73,7 +74,10 @@ const Step1Screen = ({navigation}) => {
     <>
       <StatusBar backgroundColor='#B6ECFF' barStyle='dark-content'/>
 
-      <ScrollView style={styles.wrap}>
+      <KeyboardAwareScrollView contentContainerStyle={styles.wrap} 
+          enableOnAndroid={true}
+          keyboardShouldPersistTaps='always'>
+
         <Logo style={styles.logo}/>
 
         <View style={styles.inputsWrap}>
@@ -102,7 +106,8 @@ const Step1Screen = ({navigation}) => {
 
           <TextInput style={styles.input} placeholderTextColor='#134C83' 
               onChangeText={(val) => setEmail(val)} value={email}
-              placeholder='Seu e-mail'/>
+              placeholder='Seu e-mail'
+              onEndEditing={() => handleSubmit()}/>
 
           <Button1 label={btnLbl} style={styles.continuar} 
               action={() => handleSubmit()}/>
@@ -110,7 +115,7 @@ const Step1Screen = ({navigation}) => {
           <Label style={styles.legend}
               value='Fique tranquilo! Não compartilharemos nenhum dos seus dados cadastrais com terceiros!'/>
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </>
   );
 }
@@ -121,7 +126,7 @@ const styles = StyleSheet.create({
   wrap:{
     backgroundColor:'#B6ECFF',
     width:screen.width,
-    height:screen.height,
+    height:screen.height + 150,
     padding:20,
   },
   logo:{

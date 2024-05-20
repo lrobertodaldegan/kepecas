@@ -5,7 +5,7 @@ import {
   StatusBar,
   Dimensions,
 } from "react-native";
-import Logo from "../../components/Logo";
+import Logo from "../components/Logo";
 
 
 const SplashScreen = () => {

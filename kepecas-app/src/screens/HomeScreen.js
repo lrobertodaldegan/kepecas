@@ -1,3 +1,4 @@
+import React from 'react';
 import { 
   View,
   StyleSheet,
@@ -5,36 +6,16 @@ import {
   Dimensions,
   Linking,
 } from "react-native";
-import Icon from "../../components/Icon";
-import Label from "../../components/Label";
+import Icon from "../components/Icon";
+import Label from "../components/Label";
 import { faCartFlatbed, faShop } from '@fortawesome/free-solid-svg-icons'
-import Card from "../../components/Card";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import mobileAds, { MaxAdContentRating, BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-
+import Card from "../components/Card";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2420598559068720/6468799913';
 
 const HomeScreen = ({navigation}) => {
-
-  mobileAds()
-  .setRequestConfiguration({
-    // Update all future requests suitable for parental guidance
-    maxAdContentRating: MaxAdContentRating.PG,
-    // Indicates that you want your content treated as child-directed for purposes of COPPA.
-    tagForChildDirectedTreatment: true,
-    // Indicates that you want the ad request to be handled in a
-    // manner suitable for users under the age of consent.
-    tagForUnderAgeOfConsent: true,
-    // An array of test device IDs to allow.
-    testDeviceIdentifiers: ['EMULATOR'],
-  })
-  .then(() => {
-    // Request config successfully set!
-  });
-
-  const adapterStatuses = mobileAds().initialize();
-  const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2420598559068720~4910331381';
-
   return (
     <View style={styles.wrap}>
       <StatusBar backgroundColor='#fafafa' barStyle='dark-content'/>

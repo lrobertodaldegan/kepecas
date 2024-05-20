@@ -4,8 +4,8 @@ import {
   StatusBar,
   Dimensions,
 } from "react-native";
-import Button2 from "../../components/Button2";
-import Label from "../../components/Label";
+import Button2 from "../components/Button2";
+import Label from "../components/Label";
 
 
 const TryAgainScreen = ({navigation}) => {

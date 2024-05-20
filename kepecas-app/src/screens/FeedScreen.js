@@ -5,10 +5,10 @@ import {
   Dimensions,
   FlatList,
 } from "react-native";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import Post from "../../components/Post";
-import logo from '../../assets/img/logo_menor.png';
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Post from "../components/Post";
+import logo from '../assets/img/logo_menor.png';
 
 const post = {
   id:0,foto:{logo}, texto:'teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste', 

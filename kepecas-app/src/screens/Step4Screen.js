@@ -7,13 +7,13 @@ import {
   TextInput,
   TouchableHighlight
 } from "react-native";
-import Button1 from "../../components/Button1";
-import Label from "../../components/Label";
-import Logo from "../../components/Logo";
-import Divider from '../../components/Divider';
+import Button1 from "../components/Button1";
+import Label from "../components/Label";
+import Logo from "../components/Logo";
+import Divider from '../components/Divider';
 
 //TODO ainda não estamos aprofundando os dados de usuários e perfil de usuários para rede social
-const Step3Screen = ({navigation}) => {
+const Step4Screen = ({navigation}) => {
   const [sobre, setSobre] = useState(null);
   const [url, setUrl] = useState(null);
   const [link, setLink] = useState(null);
@@ -130,4 +130,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Step3Screen;
+export default Step4Screen;

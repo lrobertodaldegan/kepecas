@@ -7,10 +7,10 @@ import {
   Dimensions,
   TextInput
 } from "react-native";
-import Button1 from "../../components/Button1";
-import Label from "../../components/Label";
-import Logo from "../../components/Logo";
-import {post} from '../../Service/Rest/RestService';
+import Button1 from "../components/Button1";
+import Label from "../components/Label";
+import Logo from "../components/Logo";
+import {post} from '../Service/Rest/RestService';
 
 
 const ResetSenhaScreen = ({navigation}) => {

@@ -6,53 +6,16 @@ import {
   StatusBar,
   Dimensions,
   TouchableHighlight,
-  TextInput,
-  FlatList,
-  PermissionsAndroid,
 } from "react-native";
-import Icon from "../../components/Icon";
-import Label from "../../components/Label";
-import PecaListItem from '../../components/PecaListItem';
-import ServicoListItem from '../../components/ServicoListItem';
-import UsuarioListItem from '../../components/UsuarioListItem';
-import {get} from '../../Service/Rest/RestService';
-import mobileAds, { MaxAdContentRating, BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-import Loader from '../../components/Loader';
-import Geolocation from 'react-native-geolocation-service';
-import Modal from '../../components/Modal';
-import Button2 from '../../components/Button2';
-import ServicoCardItem from '../../components/ServicoCardItem';
+import Icon from "../components/Icon";
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import ServicoCardItem from '../components/ServicoCardItem';
+import Label from '../components/Label';
 
-const adapterStatuses = mobileAds().initialize();
-
-const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2420598559068720~4910331381';
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-2420598559068720/6468799913';
 
 const SearchDetailScreen = ({navigation, route}) => {
-  const [loading, setLoading] = useState(true);
-  const [word, setWord] = useState(null);
-  const [filter, setFilter] = useState('servicos');
-  const [results, setResults] = useState([]);
-  const [resultsAux, setResultsAux] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [placa, setPlaca] = useState('');
-
-  const {itemType, item, coords} = route.params;
-
-  mobileAds()
-  .setRequestConfiguration({
-    // Update all future requests suitable for parental guidance
-    maxAdContentRating: MaxAdContentRating.PG,
-    // Indicates that you want your content treated as child-directed for purposes of COPPA.
-    tagForChildDirectedTreatment: true,
-    // Indicates that you want the ad request to be handled in a
-    // manner suitable for users under the age of consent.
-    tagForUnderAgeOfConsent: true,
-    // An array of test device IDs to allow.
-    testDeviceIdentifiers: ['EMULATOR'],
-  })
-  .then(() => {
-    // Request config successfully set!
-  });
+  const {item, coords} = route.params;
 
   return (
     <>
@@ -69,13 +32,7 @@ const SearchDetailScreen = ({navigation, route}) => {
         </View>
 
         <View style={styles.subWrap}>
-          <BannerAd
-            unitId={adUnitId}
-            size={BannerAdSize.BANNER}
-            requestOptions={{
-              requestNonPersonalizedAdsOnly: true,
-            }}
-          />
+          <Label value={'Parceiro do clube'} style={styles.mainTitle}/>
 
           <ServicoCardItem navigation={navigation} item={item} coordinates={coords}/>
 
@@ -106,7 +63,6 @@ const styles = StyleSheet.create({
     height:20,
   },
   subWrap:{
-    marginVertical:20,
     alignItems:'center'
   },
   searchHeader:{
@@ -120,11 +76,10 @@ const styles = StyleSheet.create({
   goBackIcon:{
     color:'#fafafa'
   },
-  title:{
+  mainTitle:{
     fontFamily:'Montserrat-Bold',
-    fontSize:16,
+    fontSize:20,
     color:'#fafafa',
-    marginTop:30
   },
   titleTopActions:{
     fontSize:16,
