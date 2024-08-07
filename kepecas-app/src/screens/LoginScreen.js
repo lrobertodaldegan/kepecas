@@ -30,7 +30,12 @@ const LoginScreen = ({navigation}) => {
     login({login:u, password:p}).then(response => {
       if(response.status == 200){
         CacheService.register('@jwt', response.data.token)
-          .then(() => navigation.navigate('search'))
+          .then(() => {
+            if(response.data.type && response.data.type === 'partner')
+              navigation.navigate('partnerHome')
+            else
+              navigation.navigate('search');
+          })
           .catch((err) => console.log(err));
       } else {
         setEnterLbl('Ops! Tente novamente.');

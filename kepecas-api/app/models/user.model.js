@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const User = mongoose.model(
-  "User",
+  "Kepecas_User",
   new mongoose.Schema({
     name: String,
     login:String,
@@ -10,7 +10,7 @@ const User = mongoose.model(
     phone: String,
     signature: {
       type: mongoose.Schema.Types.ObjectId, 
-      ref:'Signature'
+      ref:'Kepecas_Signature'
     }
   })
 );

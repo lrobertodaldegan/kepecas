@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const ServicePartner = mongoose.model(
-  "ServicePartner",
+  "Kepecas_ServicePartner",
   new mongoose.Schema({
     name: String,
     address: String,

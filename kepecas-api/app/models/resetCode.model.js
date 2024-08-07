@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
 const ResetCode = mongoose.model(
-  "ResetCode",
+  "Kepecas_ResetCode",
   new mongoose.Schema({
     code: Number,
     used: Boolean,
     user: {
       type: mongoose.Schema.Types.ObjectId, 
-      ref:'User'
+      ref:'Kepecas_User'
     }
   })
 );

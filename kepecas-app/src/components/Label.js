@@ -4,10 +4,12 @@ import {
 } from "react-native";
 
 
-const Label = ({value, style={}}) => {
-  return (
-    <Text style={[styles.lbl, style]}>{value}</Text>
-  );
+const Label = ({value, style={}, lines=null}) => {
+  if(lines && lines !== null){
+    return <Text numberOfLines={lines} style={[styles.lbl, style]}>{value}</Text>;
+  } else {
+    return <Text style={[styles.lbl, style]}>{value}</Text>;
+  }
 }
 
 const styles = StyleSheet.create({

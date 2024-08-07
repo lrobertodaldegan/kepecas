@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 
 const Device = mongoose.model(
-  "Device",
+  "Kepecas_Device",
   new mongoose.Schema({
     id: String,
     deviceId: String,
     uniqueId: String,
     user: {
       type: mongoose.Schema.Types.ObjectId, 
-      ref:'User'
+      ref:'Kepecas_User'
     }
   })
 );

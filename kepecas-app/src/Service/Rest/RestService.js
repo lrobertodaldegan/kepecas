@@ -11,7 +11,17 @@ const get = async (urlPath, headers=DEFAULT_HEADERS) => {
   try{
     let jwt = await CacheService.get('@jwt');
 
-    let response = await axios.get(`${BASEURL}${urlPath}`, {
+    let dNoCache = new Date().getMilliseconds();
+
+    let url = `${BASEURL}${urlPath}`;
+
+    if(url.includes('?')){
+      url = `${url}&d=${dNoCache}`;
+    } else {
+      url = `${url}?d=${dNoCache}`;
+    }
+
+    let response = await axios.get(url, {
       withCredentials:true,
       headers: {...headers, 'Authorization':jwt}
     });

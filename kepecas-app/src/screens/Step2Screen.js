@@ -55,7 +55,7 @@ const Step2Screen = ({navigation}) => {
 
     try{
       for(let i=0;i<qtdCarros;i++){
-        if(placas[1] && marcas[i] && modelos[i] && anos[i]){
+        if(placas[i] && marcas[i] && modelos[i] && anos[i]){
           let car = {
             placa:placas[i],
             marca:marcas[i],
@@ -64,21 +64,23 @@ const Step2Screen = ({navigation}) => {
           }
   
           let response = await post('/usercar', car);
-  
-          if(response.status == 201){
+
+          if(response.status == 201)
             created = created + 1;
-          }
-        } else {
-          created = created + 1;//workaround for blank form
         }
       }
 
-      if(created == qtdCarros)
-        navigation.navigate('step3');
-      else
+      if(created == qtdCarros) {
+        navigation.navigate('home');
+      } else {
+        setBtnLbl('Continuar');
+
         navigation.navigate('error');
+      }
     }catch(err) {
       console.log(err);
+
+      setBtnLbl('Continuar');
       
       navigation.navigate('error');
     }
@@ -126,7 +128,7 @@ const Step2Screen = ({navigation}) => {
         <Logo style={styles.logo}/>
 
         <View style={styles.inputsWrap}>
-          <Label value='Agora nos conte sobre seu(s) carro(s):'/>
+          <Label value='Nos conte sobre seu(s) carro(s):'/>
 
           {renderForms()}
 

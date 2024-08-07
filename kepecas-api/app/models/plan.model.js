@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Plan = mongoose.model(
-  "Plan",
+  "Kepecas_Plan",
   new mongoose.Schema({
     code: String,
     title: String,

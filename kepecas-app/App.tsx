@@ -12,6 +12,7 @@ import Step2Screen from './src/screens/Step2Screen';
 import Step3Screen from './src/screens/Step3Screen';
 import Step4Screen from './src/screens/Step4Screen';
 import HomeScreen from './src/screens/HomeScreen';
+import PartnerHomeScreen from './src/screens/PartnerHomeScreen';
 import SearchScreen from './src/screens/SearchScreen';
 import SearchDetailScreen from './src/screens/SearchDetailScreen';
 import FeedScreen from './src/screens/FeedScreen';
@@ -35,7 +36,7 @@ const config = {
     codeValidation:'codeValidation',
     step1:'step1',
     step2:'step2',
-    step3:'step3',
+    step3:'',
     home:'home',
     search:'search',
     searchDetail:'searchDetail',
@@ -71,6 +72,7 @@ function App(): JSX.Element {
         <Stack.Screen name="step2" component={Step2Screen} options={ScreensOptions} />
         <Stack.Screen name="step3" component={Step3Screen} options={ScreensOptions} />
         <Stack.Screen name="step4" component={Step4Screen} options={ScreensOptions} />
+        <Stack.Screen name="partnerHome" component={PartnerHomeScreen} options={ScreensOptions} />
         <Stack.Screen name="home" component={HomeScreen} options={ScreensOptions} />
         <Stack.Screen name="search" component={SearchScreen} options={ScreensOptions} />
         <Stack.Screen name="searchDetail" component={SearchDetailScreen} options={ScreensOptions} />

@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { faArrowLeftLong, faShop } from "@fortawesome/free-solid-svg-icons";
 import { 
   View,
@@ -31,6 +31,8 @@ const SearchScreen = ({navigation}) => {
   const [coords, setCoords] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [placa, setPlaca] = useState('');
+
+  const timeout = useRef(null);
 
   useEffect(() => {
     get('/service/partners').then((response) => {      
@@ -121,26 +123,35 @@ const SearchScreen = ({navigation}) => {
     }
   }
 
-  const handleFilter = (filter) => {    
-    if(filter &&filter.length > 2){
-      if(results && results.length > 0){
-        let filtered = [];
-
-        resultsAux.forEach(r => {
-          if(r.name.toLowerCase().includes(filter.toLowerCase()) 
-                || r.cat.toLowerCase().includes(filter.toLowerCase())
-                || (r.services && r.services !== null && r.services.toLowerCase().includes(filter.toLowerCase()))){
-            filtered.push(r);
-          }
-        });
-
-        setResults(filtered);
-      }
-    } else {
-      setResults(resultsAux);
-    }
+  const handleFilter = (filter) => { 
+    clearTimeout(timeout.current);
 
     setWord(filter);
+    
+    timeout.current = setTimeout(()=>{
+      if(filter && filter.length > 2){
+        if(results && results.length > 0){
+          let filtered = [];
+  
+          resultsAux.forEach(r => {
+            if(r.name.toLowerCase().includes(filter.toLowerCase()) 
+                  || r.cat.toLowerCase().includes(filter.toLowerCase())
+                  || (r.services && r.services !== null && r.services.toLowerCase().includes(filter.toLowerCase()))){
+              filtered.push(r);
+            }
+          });
+  
+          setResults(filtered);
+        }
+  
+        if(filter.length > 3) {
+          get(`/service?term=${filter}`)
+          .catch(err => console.log(err));
+        }
+      } else {
+        setResults(resultsAux);
+      }
+    }, 2000);   
   }
 
   const handleModalOn = () => {
@@ -170,7 +181,7 @@ const SearchScreen = ({navigation}) => {
         <View style={styles.searchHeader}>
           <View style={styles.headerTopActions}>
             <TouchableHighlight underlayColor='#134C83' style={styles.gbiWrap}
-                onPress={() => navigation.navigate('home')}>
+                onPress={() => navigation.goBack()}>
               <Icon icon={faArrowLeftLong} style={styles.goBackIcon}/>
             </TouchableHighlight>
 
@@ -182,8 +193,10 @@ const SearchScreen = ({navigation}) => {
 
           <Label value='Pesquisar' style={styles.title}/>
 
-          <TextInput style={styles.input} placeholderTextColor='#fafafa' 
-              onChangeText={(val) => handleFilter(val)} value={word}
+          <TextInput style={styles.input} 
+              placeholderTextColor='#fafafa' 
+              onChangeText={(val) => handleFilter(val)} 
+              value={word}
               placeholder='O que procura?'/>
           
           <View style={styles.filters}>

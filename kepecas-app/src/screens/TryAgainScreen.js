@@ -15,8 +15,10 @@ const TryAgainScreen = ({navigation}) => {
 
       <View style={styles.wrap}>
         <View style={styles.lblWrap}>
-          <Label value='Ops! Tivemos problemas ao processar os dados necessários!' 
+          <Label value='Ops! Algo de errado não está certo!' 
             style={styles.title}/>
+          <Label value='Garanta que todos os dados necessários foram informados adequadamente. Se o problema persistir, entre em contato com a gente.' 
+            style={styles.subtitle}/>
         </View>
 
         <View style={styles.btnWrap}>
@@ -43,12 +45,15 @@ const styles = StyleSheet.create({
     marginTop: (size.height / 3.5) - 50
   },
   btnWrap:{
-    marginTop: (size.height / 3.5) - 50
+    marginTop: size.height * 0.02
   },
   title: {
     fontSize:26,
     fontFamily:'Montserrat-Bold',
-    marginBottom:5
+  },
+  subtitle: {
+    fontSize:14,
+    marginVertical: size.height * 0.02
   },
 });
 

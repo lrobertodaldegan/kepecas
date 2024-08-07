@@ -66,13 +66,22 @@ const WelcomeScreen = ({navigation}) => {
         .then((response) => {
           setLoading(false);
 
-          console.log(response.data);
-
           if(response.status === 200){
-            let allOk = response.data.valid === true 
-                          && response.data.subscriptionOk === true;
+            let hasCars = response.data.user && response.data.userCars
+                                             && response.data.userCars.length > 0;
+            if(hasCars === true){
+              let allOk = response.data.valid === true;
 
-            navigate.navigate(allOk === true ? 'home' : 'step3');
+              if(allOk === true){
+                navigate.navigate(
+                  response.data.user && response.data.user.type === 'partner' 
+                    ? 'partnerHome' 
+                    : 'home'
+                );
+              }
+            } else {
+              navigate.navigate('step2');
+            }
           }
         })
         .catch((err) => console.log(err));
@@ -92,7 +101,7 @@ const WelcomeScreen = ({navigation}) => {
               style={styles.legend}/>
 
           <Button2 label='É o meu primeiro acesso' 
-              action={() => navigation.navigate('details')}/>
+              action={() => navigation.navigate('step1')}/>
               
           <Button1 label='Já sou cadastrado!' 
               action={() => navigation.navigate('login')}/>

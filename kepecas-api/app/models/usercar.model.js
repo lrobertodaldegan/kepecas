@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const UserCar = mongoose.model(
-  "UserCar",
+  "Kepecas_UserCar",
   new mongoose.Schema({
     id: String,
     placa: String,
@@ -10,7 +10,7 @@ const UserCar = mongoose.model(
     ano: Number,
     user: {
       type: mongoose.Schema.Types.ObjectId, 
-      ref:'User'
+      ref:'Kepecas_User'
     }
   })
 );

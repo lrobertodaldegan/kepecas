@@ -5,14 +5,36 @@ import {
   Dimensions,
 } from "react-native";
 import Icon from "./Icon";
-import { faImages, faSearch, faWarehouse } from '@fortawesome/free-solid-svg-icons'
-
+import { faSearch, faWarehouse } from '@fortawesome/free-solid-svg-icons'
+import CacheService from "../Service/Cache/CacheService";
+import { post } from "../Service/Rest/RestService";
+import DeviceInfo from 'react-native-device-info';
 
 const Footer = ({selected='home', navigation}) => {
+
+  let devId = DeviceInfo.getDeviceId();
+
+  const handleHomeNavigation = () => {
+    CacheService.get('@jwt').then((jwt) => {
+      if(jwt && jwt !== null){
+        post('/user/device', {deviceId:devId})
+        .then((response) => {
+          if(response.status === 200){
+            navigation.navigate(
+              response.data.user && response.data.user.type === 'partner' 
+                ? 'partnerHome' 
+                : 'home'
+            );
+          }
+        }).catch((err) => console.log(err));
+      }
+    });
+  }
+
   return (
     <View style={styles.footer}>
       <TouchableHighlight underlayColor='#fafafa'
-          onPress={() => navigation.navigate('home')}
+          onPress={handleHomeNavigation}
           style={[styles.footerIconWrap, selected === 'home' 
                                                     ? styles.footerIconWrapSelected 
                                                     : {}]}>
